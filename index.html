@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тоо таах тоглоом</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Unbounded:wght@600;800&display=swap&subset=cyrillic" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="game">
+    <header class="top">
+      <h1>Тоо таах</h1>
+      <p class="stats">Нийт оноо: <span id="total">0</span> · Хожил: <span id="wins">0</span><br>Хамгийн сайн: <span id="best">–</span></p>
+    </header>
+
+    <div class="levels" role="group" aria-label="Түвшин">
+      {% for key, lv in levels.items() %}
+      <button class="btn level" data-level="{{ key }}" type="button">
+        {{ lv.label }}<small>1–{{ lv.max }}</small>
+      </button>
+      {% endfor %}
+    </div>
+
+    <section class="board" aria-live="polite">
+      <div class="range" aria-hidden="true"><div id="range-fill"></div></div>
+      <p id="range-text" class="range-text"></p>
+      <p class="attempts">Оролдлого: <b id="attempts">0</b></p>
+      <p id="message" class="message">Тоогоо таа!</p>
+    </section>
+
+    <div class="input-row">
+      <input id="guess" type="text" inputmode="numeric" autocomplete="off"
+             placeholder="Тоогоо бич" aria-label="Таах тоо" maxlength="6">
+      <button id="submit" class="btn primary" type="button">Таах</button>
+    </div>
+    <p id="error" class="error" role="alert"></p>
+
+    <ul id="history" class="history"></ul>
+    <button id="restart" class="btn ghost" type="button">Шинэ тоглоом</button>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
